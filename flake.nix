@@ -9,7 +9,7 @@
   };
 
   outputs = { self, flake-utils, naersk, nixpkgs, ... }:
-    flake-utils.lib.eachDefaultSystem (system:
+    flake-utils.lib.eachSystem [ flake-utils.lib.system.x86_64-linux ] (system:
       let
         pkgs = (import nixpkgs) { inherit system; };
         naersk' = pkgs.callPackage naersk { };
@@ -22,7 +22,19 @@
 
         # For `nix develop`:
         devShell = pkgs.mkShell {
-          nativeBuildInputs = with pkgs; [ rustc cargo gcc ];
+          nativeBuildInputs = with pkgs; [
+            rustc
+            cargo
+            gcc
+            openssl
+            pkg-config
+            libnice
+            gst_all_1.gstreamer
+            gst_all_1.gst-plugins-base
+            gst_all_1.gst-plugins-good
+            gst_all_1.gst-plugins-bad
+            gst_all_1.gst-plugins-ugly
+          ];
           buildInputs = with pkgs; [ rustfmt clippy ];
           RUST_SRC_PATH = pkgs.rust.packages.stable.rustPlatform.rustLibSrc;
         };
