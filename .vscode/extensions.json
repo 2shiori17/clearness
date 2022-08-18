@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "arrterian.nix-env-selector",
+    "rust-lang.rust-analyzer",
+    "serayuzgur.crates",
+    "tamasfe.even-better-toml",
+    "vadimcn.vscode-lldb",
+  ]
+}
